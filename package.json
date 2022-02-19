@@ -19,6 +19,7 @@
   "devDependencies": {
     "@commitlint/cli": "^16.2.1",
     "@commitlint/config-conventional": "^16.2.1",
+    "autoprefixer": "^10.4.2",
     "eslint": "8.9.0",
     "eslint-config-next": "12.1.0",
     "eslint-config-prettier": "^8.4.0",
@@ -26,7 +27,9 @@
     "eslint-plugin-tailwind": "^0.2.1",
     "eslint-plugin-tailwindcss": "^3.4.4",
     "husky": "^7.0.4",
+    "postcss": "^8.4.6",
     "prettier": "^2.5.1",
-    "prettier-plugin-tailwindcss": "^0.1.7"
+    "prettier-plugin-tailwindcss": "^0.1.7",
+    "tailwindcss": "^3.0.23"
   }
 }
