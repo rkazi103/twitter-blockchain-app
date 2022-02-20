@@ -5,12 +5,13 @@
   "scripts": {
     "dev": "next dev",
     "prepare": "husky install",
-    "format": "prettier --write \"src/{components,pages,styles,utils,lib}/**/*.{js,jsx,ts,tsx,css,scss,json,yaml,md}\" && prettier --write \"studio/**/*.{js,jsx,json,md}\"",
-    "format:check": "prettier --check \"src/{components,pages,styles,utils,lib}/**/*.{js,jsx,ts,tsx,css,scss,json,yaml,md}\" && prettier --check \"studio/**/*.{js,jsx,json,md}\"",
+    "format": "prettier --write \"src/{components,containers,pages,styles,utils,lib}/**/*.{js,jsx,ts,tsx,css,scss,json,yaml,md}\" && prettier --write \"studio/**/*.{js,jsx,json,md}\"",
+    "format:check": "prettier --check \"src/{components,containers,pages,styles,utils,lib}/**/*.{js,jsx,ts,tsx,css,scss,json,yaml,md}\" && prettier --check \"studio/**/*.{js,jsx,json,md}\"",
+    "lint": "eslint --fix 'src{components,containers,pages,utils}/**/*.{js,jsx,ts,tsx}'",
+    "lint:check": "eslint 'src{components,containers,pages,utils}/**/*.{js,jsx,ts,tsx}'",
     "pre-commit": "yarn run format && git add -A .",
     "build": "next build",
-    "start": "next start",
-    "lint": "next lint"
+    "start": "next start"
   },
   "dependencies": {
     "next": "12.1.0",
