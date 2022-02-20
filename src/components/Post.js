@@ -45,19 +45,19 @@ const Post = ({
         </div>
 
         <div className="mr-28 mt-4 flex justify-between text-[#8899a6]">
-          <div className="rounded-full p-2 text-lg hover:bg-[#1e364a] hover:text-[#1d9bf0]">
+          <div className="cursor-pointer rounded-full p-2 text-lg hover:bg-[#1e364a] hover:text-[#1d9bf0]">
             <FaRegComment />
           </div>
 
-          <div className="rounded-full p-2 text-lg hover:bg-[#1b393b] hover:text-[#03ba7c]">
+          <div className="cursor-pointer rounded-full p-2 text-lg hover:bg-[#1b393b] hover:text-[#03ba7c]">
             <FaRetweet />
           </div>
 
-          <div className="rounded-full p-2 text-lg hover:bg-[#39243c] hover:text-[#f91c80]">
+          <div className="cursor-pointer rounded-full p-2 text-lg hover:bg-[#39243c] hover:text-[#f91c80]">
             <AiOutlineHeart />
           </div>
 
-          <div className="rounded-full p-2 text-lg hover:bg-[#1e364a] hover:text-[#1d9bf0]">
+          <div className="cursor-pointer rounded-full p-2 text-lg hover:bg-[#1e364a] hover:text-[#1d9bf0]">
             <FiShare />
           </div>
         </div>
