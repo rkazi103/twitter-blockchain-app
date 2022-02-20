@@ -10,10 +10,15 @@ const style = {
 };
 
 const SidebarOption = ({ text, Icon, isActive, setSelected, redirect }) => {
+  const router = useRouter();
+
   return (
     <div
       className="flex w-min cursor-pointer items-center rounded-[100px] p-4 transition-all hover:bg-[#333c45] hover:duration-200 hover:ease-in-out"
-      onClick={() => setSelected(text)}
+      onClick={() => {
+        setSelected(text);
+        if (redirect) router.push(redirect);
+      }}
     >
       <div className="mr-4 text-xl">
         <Icon />
