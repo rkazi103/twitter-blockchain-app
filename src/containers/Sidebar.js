@@ -11,7 +11,7 @@ import {
   BsPersonFill,
 } from "react-icons/bs";
 import { VscTwitter } from "react-icons/vsc";
-import SidebarOption from "./SidebarOption";
+import SidebarOption from "../components/SidebarOption";
 import { useState } from "react";
 
 const style = {

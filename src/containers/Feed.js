@@ -1,6 +1,6 @@
 import { BsStars } from "react-icons/bs";
-import Post from "./Post";
-import TweetBox from "./TweetBox";
+import Post from "../components/Post";
+import TweetBox from "../components/TweetBox";
 
 const dummyTweets = [
   {
