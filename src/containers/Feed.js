@@ -1,105 +1,7 @@
 import { BsStars } from "react-icons/bs";
 import Post from "../components/Post";
 import TweetBox from "../components/TweetBox";
-
-const dummyTweets = [
-  {
-    displayName: "Rayan",
-    userName: "0x71C7656EC7ab88b098defB751B7401B5f6d8976F",
-    avatar:
-      "https://lh3.googleusercontent.com/ogw/ADea4I6ue6ul3ozCcUYNy63qPsdyJ5zRRK5GenxA4mELWg=s64-c-mo",
-    text: "good morning",
-    isProfileImageNft: false,
-    timestamp: "2015-03-04T00:00:00.000Z",
-  },
-  {
-    displayName: "Rayan",
-    userName: "0x71C7656EC7ab88b098defB751B7401B5f6d8976F",
-    avatar:
-      "https://lh3.googleusercontent.com/ogw/ADea4I6ue6ul3ozCcUYNy63qPsdyJ5zRRK5GenxA4mELWg=s64-c-mo",
-    text: "good morning",
-    isProfileImageNft: false,
-    timestamp: "2021-03-04T00:00:00.000Z",
-  },
-  {
-    displayName: "Rayan",
-    userName: "0x71C7656EC7ab88b098defB751B7401B5f6d8976F",
-    avatar:
-      "https://lh3.googleusercontent.com/ogw/ADea4I6ue6ul3ozCcUYNy63qPsdyJ5zRRK5GenxA4mELWg=s64-c-mo",
-    text: "good morning",
-    isProfileImageNft: false,
-    timestamp: "2016-04-04T00:00:00.000Z",
-  },
-  {
-    displayName: "Rayan",
-    userName: "0x71C7656EC7ab88b098defB751B7401B5f6d8976F",
-    avatar:
-      "https://lh3.googleusercontent.com/ogw/ADea4I6ue6ul3ozCcUYNy63qPsdyJ5zRRK5GenxA4mELWg=s64-c-mo",
-    text: "good morning",
-    isProfileImageNft: false,
-    timestamp: "2016-04-04T00:00:00.000Z",
-  },
-  {
-    displayName: "Rayan",
-    userName: "0x71C7656EC7ab88b098defB751B7401B5f6d8976F",
-    avatar:
-      "https://lh3.googleusercontent.com/ogw/ADea4I6ue6ul3ozCcUYNy63qPsdyJ5zRRK5GenxA4mELWg=s64-c-mo",
-    text: "good morning",
-    isProfileImageNft: false,
-    timestamp: "2016-04-04T00:00:00.000Z",
-  },
-  {
-    displayName: "Rayan",
-    userName: "0x71C7656EC7ab88b098defB751B7401B5f6d8976F",
-    avatar:
-      "https://lh3.googleusercontent.com/ogw/ADea4I6ue6ul3ozCcUYNy63qPsdyJ5zRRK5GenxA4mELWg=s64-c-mo",
-    text: "good morning",
-    isProfileImageNft: false,
-    timestamp: "2016-04-04T00:00:00.000Z",
-  },
-  {
-    displayName: "Rayan",
-    userName: "0x71C7656EC7ab88b098defB751B7401B5f6d8976F",
-    avatar:
-      "https://lh3.googleusercontent.com/ogw/ADea4I6ue6ul3ozCcUYNy63qPsdyJ5zRRK5GenxA4mELWg=s64-c-mo",
-    text: "good morning",
-    isProfileImageNft: false,
-    timestamp: "2016-04-04T00:00:00.000Z",
-  },
-  {
-    displayName: "Rayan",
-    userName: "0x71C7656EC7ab88b098defB751B7401B5f6d8976F",
-    avatar:
-      "https://lh3.googleusercontent.com/ogw/ADea4I6ue6ul3ozCcUYNy63qPsdyJ5zRRK5GenxA4mELWg=s64-c-mo",
-    text: "good morning",
-    isProfileImageNft: false,
-    timestamp: "2016-04-04T00:00:00.000Z",
-  },
-  {
-    displayName: "Rayan",
-    userName: "0x71C7656EC7ab88b098defB751B7401B5f6d8976F",
-    avatar:
-      "https://lh3.googleusercontent.com/ogw/ADea4I6ue6ul3ozCcUYNy63qPsdyJ5zRRK5GenxA4mELWg=s64-c-mo",
-    text: "good morning",
-    isProfileImageNft: false,
-    timestamp: "2016-04-04T00:00:00.000Z",
-  },
-  {
-    displayName: "Rayan",
-    userName: "0x71C7656EC7ab88b098defB751B7401B5f6d8976F",
-    avatar:
-      "https://lh3.googleusercontent.com/ogw/ADea4I6ue6ul3ozCcUYNy63qPsdyJ5zRRK5GenxA4mELWg=s64-c-mo",
-    text: "good morning",
-    isProfileImageNft: false,
-    timestamp: "2016-04-04T00:00:00.000Z",
-  },
-];
-
-const style = {
-  wrapper: `flex-[2] border-r border-l border-[#38444d] overflow-y-scroll`,
-  header: `sticky top-0 bg-[#15202b] z-10 p-4 flex justify-between items-center`,
-  headerTitle: `text-xl font-bold`,
-};
+import { tweets } from "../data/static";
 
 const Feed = () => {
   return (
@@ -111,7 +13,7 @@ const Feed = () => {
 
       <TweetBox />
 
-      {dummyTweets.map((tweet, index) => (
+      {tweets.map((tweet, index) => (
         <Post
           key={index}
           displayName={tweet.displayName}

@@ -1,5 +1,6 @@
 import Head from "next/head";
 import ProfileHeader from "../components/ProfileHeader";
+import ProfileTweets from "../components/ProfileTweets";
 import Sidebar from "../containers/Sidebar";
 import Widgets from "../containers/Widgets";
 
@@ -16,6 +17,7 @@ const Profile = () => {
         <Sidebar />
         <div className="flex-[2] overflow-y-scroll border-r border-l border-[#38444d] scrollbar-hide">
           <ProfileHeader />
+          <ProfileTweets />
         </div>
         <Widgets />
       </div>
