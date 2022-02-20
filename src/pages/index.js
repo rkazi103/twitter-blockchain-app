@@ -1,4 +1,5 @@
 import Head from "next/head";
+import Feed from "../components/Feed";
 import Sidebar from "../components/Sidebar";
 
 export default function Home() {
@@ -12,6 +13,8 @@ export default function Home() {
 
       <div className="flex w-2/3 max-w-[1400px] justify-between">
         <Sidebar />
+        <Feed />
+        <h1>Widgets</h1>
       </div>
     </div>
   );
