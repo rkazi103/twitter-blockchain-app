@@ -1,5 +1,4 @@
-import { tweets } from "../data/static";
-import Post from "../components/Post";
+import Post from "./Post";
 import { useContext } from "react";
 import { TwitterContext } from "../context/TwitterContext";
 

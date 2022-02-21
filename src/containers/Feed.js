@@ -3,7 +3,6 @@ import Post from "../components/Post";
 import TweetBox from "../components/TweetBox";
 import { useContext } from "react";
 import { TwitterContext } from "../context/TwitterContext";
-// import { tweets } from "../data/static";
 
 const Feed = () => {
   const { tweets } = useContext(TwitterContext);
