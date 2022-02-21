@@ -8,6 +8,7 @@ export const TwitterContext = createContext();
 export const TwitterProvider = ({ children }) => {
   const [appStatus, setAppStatus] = useState("loading");
   const [currentAccount, setCurrentAccount] = useState("");
+  const [currentUser, setCurrentUser] = useState({});
   const [tweets, setTweets] = useState([]);
   const router = useRouter();
 
@@ -110,12 +111,42 @@ export const TwitterProvider = ({ children }) => {
     );
   };
 
+  const getCurrentUserDetails = async (userAccount = currentAccount) => {
+    if (appStatus !== "connected") return;
+
+    const query = groq`
+      *[_type == "users" && _id == "${userAccount}"]{
+        "tweets": tweets[]->{timestamp, tweet}|order(timestamp desc),
+        name,
+        profileImage,
+        isProfileImageNft,
+        coverImage,
+        walletAddress
+      }
+    `;
+
+    client.fetch(query).then(data =>
+      setCurrentUser({
+        tweets: data[0].tweets,
+        name: data[0].name,
+        profileImage: data[0].profileImage,
+        isProfileImageNft: data[0].isProfileImageNft,
+        coverImage: data[0].coverImage,
+        walletAddress: data[0].walletAddress,
+      })
+    );
+  };
+
   return (
     <TwitterContext.Provider
       value={{
         appStatus,
         currentAccount,
         connectWallet,
+        fetchTweets,
+        tweets,
+        currentUser,
+        getCurrentUserDetails,
       }}
     >
       {children}
