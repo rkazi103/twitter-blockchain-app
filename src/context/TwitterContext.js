@@ -14,7 +14,6 @@ export const TwitterProvider = ({ children }) => {
   useEffect(() => {
     checkIfWalletIsConnected();
     fetchTweets();
-
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -93,21 +92,22 @@ export const TwitterProvider = ({ children }) => {
       }|order(timestamp desc)
     `;
 
-    const sanityResponse = client.fetch(query);
-    sanityResponse.forEach(async item => {
-      const newItem = {
-        tweet: item.tweet,
-        timestamp: item.timestamp,
-        author: {
-          name: item.author.name,
-          walletAddress: item.author.walletAddress,
-          isProfileImageNft: item.author.isProfileImageNft,
-          profileImage: item.author.profileImage,
-        },
-      };
+    client.fetch(query).then(data =>
+      data.forEach(async item => {
+        const newItem = {
+          tweet: item.tweet,
+          timestamp: item.timestamp,
+          author: {
+            name: item.author.name,
+            walletAddress: item.author.walletAddress,
+            isProfileImageNft: item.author.isProfileImageNft,
+            profileImage: item.author.profileImage,
+          },
+        };
 
-      setTweets(prevState => [...prevState, newItem]);
-    });
+        setTweets(prevState => [...prevState, newItem]);
+      })
+    );
   };
 
   return (
@@ -116,7 +116,6 @@ export const TwitterProvider = ({ children }) => {
         appStatus,
         currentAccount,
         connectWallet,
-        fetchTweets,
       }}
     >
       {children}
