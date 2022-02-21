@@ -10,29 +10,31 @@ export const TwitterProvider = ({ children }) => {
   const router = useRouter();
 
   useEffect(() => {
-    (async () => {
-      if (!window.ethereum) return;
-      try {
-        const addressArray = await window.ethereum.request({
-          method: "eth_accounts",
-        });
-
-        if (addressArray.length > 0) {
-          setAppStatus("connected");
-          setCurrentAccount(addressArray[0]);
-          createUserAccount(addressArray[0]);
-        } else {
-          router.push("/");
-          setAppStatus("notConnected");
-        }
-      } catch (err) {
-        console.error(err);
-        router.push("/");
-        setAppStatus("error");
-      }
-    })();
+    checkIfWalletIsConnected();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [router]);
+  }, []);
+
+  const checkIfWalletIsConnected = async () => {
+    if (!window.ethereum) return;
+    try {
+      const addressArray = await window.ethereum.request({
+        method: "eth_accounts",
+      });
+
+      if (addressArray.length > 0) {
+        setAppStatus("connected");
+        setCurrentAccount(addressArray[0]);
+        createUserAccount(addressArray[0]);
+      } else {
+        router.push("/");
+        setAppStatus("notConnected");
+      }
+    } catch (err) {
+      console.error(err);
+      router.push("/");
+      setAppStatus("error");
+    }
+  };
 
   const connectWallet = async () => {
     if (!window.ethereum) return setAppStatus("noMetaMask");
