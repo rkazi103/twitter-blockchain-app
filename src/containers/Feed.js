@@ -1,9 +1,13 @@
 import { BsStars } from "react-icons/bs";
 import Post from "../components/Post";
 import TweetBox from "../components/TweetBox";
-import { tweets } from "../data/static";
+import { useContext } from "react";
+import { TwitterContext } from "../context/TwitterContext";
+// import { tweets } from "../data/static";
 
 const Feed = () => {
+  const { tweets } = useContext(TwitterContext);
+
   return (
     <div className="flex-[2] overflow-y-scroll border-r border-l border-[#38444d] scrollbar-hide">
       <div className="sticky top-0 z-10 flex items-center justify-between bg-[#15202b] p-4">
@@ -16,13 +20,21 @@ const Feed = () => {
       {tweets.map((tweet, index) => (
         <Post
           key={index}
-          displayName={tweet.displayName}
-          userName={`${tweet.userName.slice(0, 4)}...${tweet.userName.slice(
-            41
-          )}`}
-          avatar={tweet.avatar}
-          text={tweet.text}
-          isProfileImageNft={tweet.isProfileImageNft}
+          displayName={
+            tweet.author.name === "Unnamed"
+              ? `${tweet.author.walletAddress.slice(
+                  0,
+                  4
+                )}...${tweet.author.walletAddress.slice(41)}`
+              : tweet.author.name
+          }
+          userName={`${tweet.author.walletAddress.slice(
+            0,
+            4
+          )}...${tweet.author.walletAddress.slice(41)}`}
+          avatar={tweet.author.profileImage}
+          text={tweet.tweet}
+          isProfileImageNft={tweet.author.isProfileImageNft}
           timestamp={tweet.timestamp}
         />
       ))}

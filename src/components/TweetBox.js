@@ -11,7 +11,7 @@ import { client } from "../lib/sanityClient";
 
 const TweetBox = () => {
   const [tweetMessage, setTweetMessage] = useState("");
-  const { currentAccount } = useContext(TwitterContext);
+  const { currentAccount, currentUser } = useContext(TwitterContext);
 
   const postTweet = async event => {
     event.preventDefault();
@@ -51,9 +51,13 @@ const TweetBox = () => {
     <div className="flex flex-row border-b border-[#38444d] px-4 pb-4">
       <div className="mr-4">
         <img
-          src="https://lh3.googleusercontent.com/ogw/ADea4I6ue6ul3ozCcUYNy63qPsdyJ5zRRK5GenxA4mELWg=s64-c-mo"
+          src={currentUser.profileImage}
           alt="Profile Picture"
-          className="h-12 w-12 rounded-full"
+          className={
+            currentUser.isProfileImageNft
+              ? "height-12 smallHex w-12 rounded-full"
+              : "height-12 w-12 rounded-full"
+          }
         />
       </div>
 

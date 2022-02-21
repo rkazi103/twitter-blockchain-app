@@ -1,24 +1,26 @@
 import { tweets } from "../data/static";
 import Post from "../components/Post";
-
-const style = {
-  wrapper: `scrollbar-hide`,
-  header: `sticky top-0 bg-[#15202b] z-10 p-4 flex justify-between items-center`,
-  headerTitle: `text-xl font-bold`,
-};
+import { useContext } from "react";
+import { TwitterContext } from "../context/TwitterContext";
 
 const ProfileTweets = () => {
+  const { currentAccount, currentUser } = useContext(TwitterContext);
+
   return (
     <div className="scrollbar-hide">
-      {tweets?.map((tweet, index) => (
+      {currentUser.tweets?.map((tweet, index) => (
         <Post
           key={index}
-          displayName={tweet.displayName}
-          userName={`${tweet.userName.slice(0, 4)}...${tweet.userName.slice(
+          displayName={
+            currentUser.name === "Unnamed"
+              ? `${currentAccount.slice(0, 4)}...${currentAccount.slice(41)}`
+              : currentUser.name
+          }
+          userName={`${currentAccount.slice(0, 4)}...${currentAccount.slice(
             41
           )}`}
-          avatar={tweet.avatar}
-          text={tweet.text}
+          avatar={currentUser.profileImage}
+          text={tweet.tweet}
           isProfileImageNft={tweet.isProfileImageNft}
           timestamp={tweet.timestamp}
         />

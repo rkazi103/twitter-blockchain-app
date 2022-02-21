@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { createContext, useState, useEffect } from "react";
 import { useRouter } from "next/router";
 import { client } from "../lib/sanityClient";
@@ -14,9 +15,13 @@ export const TwitterProvider = ({ children }) => {
 
   useEffect(() => {
     checkIfWalletIsConnected();
-    fetchTweets();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  useEffect(() => {
+    if (!currentAccount || appStatus !== "connected") return;
+    getCurrentUserDetails(currentAccount);
+    fetchTweets();
+  }, [currentAccount, appStatus]);
 
   const checkIfWalletIsConnected = async () => {
     if (!window.ethereum) return;
