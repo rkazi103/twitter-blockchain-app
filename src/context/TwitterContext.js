@@ -1,16 +1,20 @@
 import { createContext, useState, useEffect } from "react";
 import { useRouter } from "next/router";
 import { client } from "../lib/sanityClient";
+import groq from "groq";
 
 export const TwitterContext = createContext();
 
 export const TwitterProvider = ({ children }) => {
   const [appStatus, setAppStatus] = useState("loading");
   const [currentAccount, setCurrentAccount] = useState("");
+  const [tweets, setTweets] = useState([]);
   const router = useRouter();
 
   useEffect(() => {
     checkIfWalletIsConnected();
+    fetchTweets();
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -80,9 +84,40 @@ export const TwitterProvider = ({ children }) => {
     }
   };
 
+  const fetchTweets = async () => {
+    const query = groq`
+       *[_type == "tweets"]{
+        "author": author->{name, walletAddress, profileImage, isProfileImageNft},
+        tweet,
+        timestamp
+      }|order(timestamp desc)
+    `;
+
+    const sanityResponse = client.fetch(query);
+    sanityResponse.forEach(async item => {
+      const newItem = {
+        tweet: item.tweet,
+        timestamp: item.timestamp,
+        author: {
+          name: item.author.name,
+          walletAddress: item.author.walletAddress,
+          isProfileImageNft: item.author.isProfileImageNft,
+          profileImage: item.author.profileImage,
+        },
+      };
+
+      setTweets(prevState => [...prevState, newItem]);
+    });
+  };
+
   return (
     <TwitterContext.Provider
-      value={{ appStatus, currentAccount, connectWallet }}
+      value={{
+        appStatus,
+        currentAccount,
+        connectWallet,
+        fetchTweets,
+      }}
     >
       {children}
     </TwitterContext.Provider>
