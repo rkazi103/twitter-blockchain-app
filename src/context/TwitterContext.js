@@ -1,5 +1,6 @@
 import { createContext, useState, useEffect } from "react";
 import { useRouter } from "next/router";
+import { client } from "../lib/sanityClient";
 
 export const TwitterContext = createContext();
 
@@ -19,6 +20,7 @@ export const TwitterProvider = ({ children }) => {
         if (addressArray.length > 0) {
           setAppStatus("connected");
           setCurrentAccount(addressArray[0]);
+          createUserAccount(addressArray[0]);
         } else {
           router.push("/");
           setAppStatus("notConnected");
@@ -29,6 +31,7 @@ export const TwitterProvider = ({ children }) => {
         setAppStatus("error");
       }
     })();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [router]);
 
   const connectWallet = async () => {
@@ -48,6 +51,28 @@ export const TwitterProvider = ({ children }) => {
       }
     } catch (err) {
       console.error(err);
+      setAppStatus("error");
+    }
+  };
+
+  const createUserAccount = async (userWalletAddress = currentAccount) => {
+    if (!window.ethereum) return setAppStatus("noMetaMask");
+    try {
+      const userDoc = {
+        _type: "users",
+        _id: userWalletAddress,
+        name: "Unnamed",
+        isProfileImageNft: false,
+        profileImage:
+          "https://about.twitter.com/content/dam/about-twitter/en/brand-toolkit/brand-download-img-1.jpg.twimg.1920.jpg",
+        walletAddress: userWalletAddress,
+      };
+
+      await client.createIfNotExists(userDoc);
+
+      setAppStatus("connected");
+    } catch (error) {
+      router.push("/");
       setAppStatus("error");
     }
   };
