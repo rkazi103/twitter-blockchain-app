@@ -4,12 +4,47 @@ import { RiFileGifLine, RiBarChartHorizontalFill } from "react-icons/ri";
 import { IoMdCalendar } from "react-icons/io";
 import { MdOutlineLocationOn } from "react-icons/md";
 import { useState } from "react";
+import { useContext } from "react";
+import { TwitterContext } from "../context/TwitterContext";
+import { v4 as uuidv4 } from "uuid";
+import { client } from "../lib/sanityClient";
 
 const TweetBox = () => {
   const [tweetMessage, setTweetMessage] = useState("");
+  const { currentAccount } = useContext(TwitterContext);
 
-  const postTweet = e => {
-    e.preventDefault();
+  const postTweet = async event => {
+    event.preventDefault();
+    if (!tweetMessage) return;
+
+    const tweetId = uuidv4();
+    const tweetDoc = {
+      _type: "tweets",
+      _id: tweetId,
+      tweet: tweetMessage,
+      timestamp: new Date(Date.now()).toISOString(),
+      author: {
+        _key: tweetId,
+        _ref: currentAccount,
+        _type: "reference",
+      },
+    };
+
+    await client.createIfNotExists(tweetDoc);
+
+    await client
+      .patch(currentAccount)
+      .setIfMissing({ tweets: [] })
+      .insert("after", "tweets[-1]", [
+        {
+          _key: tweetId,
+          _ref: tweetId,
+          _type: "reference",
+        },
+      ])
+      .commit();
+
+    setTweetMessage("");
   };
 
   return (
