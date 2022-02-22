@@ -12,6 +12,9 @@ export default function Home() {
   const { appStatus, connectWallet } = useContext(TwitterContext);
 
   const app = (status = appStatus) => {
+    if (typeof window !== "undefined" && !window.ethererum)
+      return noMetaMaskFound;
+
     switch (status) {
       case "connected":
         return userLoggedIn;
