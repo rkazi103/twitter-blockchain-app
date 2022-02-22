@@ -74,3 +74,8 @@ jobs:
 
       - name: Build
         run: yarn run build
+        env:
+          NEXT_PUBLIC_SANITY_PROJECT_ID: ${{ secrets.NEXT_PUBLIC_SANITY_PROJECT_ID }}
+          NEXT_PUBLIC_SANITY_TOKEN: ${{ secrets.NEXT_PUBLIC_SANITY_TOKEN }}
+          NEXT_PUBLIC_PINATA_API_KEY: ${{ secrets.NEXT_PUBLIC_PINATA_API_KEY }}
+          NEXT_PUBLIC_PINATA_API_SECRET: ${{ secrets.NEXT_PUBLIC_PINATA_API_SECRET }}
