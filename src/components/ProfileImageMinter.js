@@ -4,6 +4,7 @@ import { TwitterContext } from "../context/TwitterContext";
 import InitialMintingState from "./InitialMintingState";
 import LoadingMintingState from "./LoadingMintingState";
 import FinishedMintingState from "./FinishedMintingState";
+import { pinFileToIPFS } from "../lib/pinata";
 
 const ProfileImageMinter = () => {
   const router = useRouter();
@@ -11,11 +12,17 @@ const ProfileImageMinter = () => {
   const [description, setDescription] = useState("");
   const [status, setStatus] = useState("initial");
   const [profileImage, setProfileImage] = useState();
-  const { setAppStatus } = useContext(TwitterContext);
+  const { setAppStatus, currentAccount } = useContext(TwitterContext);
 
   const mint = async () => {
     if (!name || !description || !profileImage) return;
+
     setStatus("loading");
+
+    const pinataMetadata = {
+      name: `${name} - ${description}`,
+    };
+    const ipfsImageHash = await pinFileToIPFS(profileImage, pinataMetadata);
   };
 
   const renderLogic = (modalStatus = status) => {

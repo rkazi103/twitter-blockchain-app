@@ -13,26 +13,27 @@ export const pinJSONToIPFS = async json => {
         pinata_secret_api_key: pinataSecret,
       },
     })
-    .then(res => res.data.IpfsHash)
+    .then(response => response.data.IpfsHash)
     .catch(err => console.error(err));
 };
 
-export const pinFileToIPFS = async (file, pinataMetadata) => {
-  const url = "https://api.pinata.cloud/pinning/pinFileToIPFS";
+export const pinFileToIPFS = async (file, pinataMetaData) => {
+  const url = `https://api.pinata.cloud/pinning/pinFileToIPFS`;
 
   let data = new FormData();
+
   data.append("file", file);
-  data.append("pinataMetadata", JSON.stringify(pinataMetadata));
+  data.append("pinataMetadata", JSON.stringify(pinataMetaData));
 
   return axios
     .post(url, data, {
       maxBodyLength: "Infinity",
       headers: {
         "Content-Type": `multipart/form-data; boundary=${data._boundary}`,
-        pinata_api_key: key,
-        pinata_secret_api_key: secret,
+        pinata_api_key: pinataKey,
+        pinata_secret_api_key: pinataSecret,
       },
     })
-    .then(res => res.data.IpfsHash)
-    .catch(err => console.error(err));
+    .then(response => response.data.IpfsHash)
+    .catch(error => console.error(error));
 };
