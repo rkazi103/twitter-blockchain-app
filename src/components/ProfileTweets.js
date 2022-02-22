@@ -20,7 +20,7 @@ const ProfileTweets = () => {
           )}`}
           avatar={currentUser.profileImage}
           text={tweet.tweet}
-          isProfileImageNft={tweet.isProfileImageNft}
+          isProfileImageNft={currentUser.isProfileImageNft}
           timestamp={tweet.timestamp}
         />
       ))}
