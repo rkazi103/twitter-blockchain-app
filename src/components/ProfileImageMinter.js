@@ -1,20 +1,22 @@
 import { useRouter } from "next/router";
 import { useState, useContext } from "react";
-import TwitterContext from "../context/TwitterContext";
+import { TwitterContext } from "../context/TwitterContext";
 import InitialMintingState from "./InitialMintingState";
 import LoadingMintingState from "./LoadingMintingState";
 import FinishedMintingState from "./FinishedMintingState";
 
 const ProfileImageMinter = () => {
-  const { currentAccount, setAppStatus } = useContext(TwitterContext);
   const router = useRouter();
-
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
   const [status, setStatus] = useState("initial");
   const [profileImage, setProfileImage] = useState();
+  const { setAppStatus } = useContext(TwitterContext);
 
-  const mint = async () => {};
+  const mint = async () => {
+    if (!name || !description || !profileImage) return;
+    setStatus("loading");
+  };
 
   const renderLogic = (modalStatus = status) => {
     switch (modalStatus) {
