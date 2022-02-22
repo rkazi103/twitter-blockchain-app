@@ -17,13 +17,13 @@ export const pinJSONToIPFS = async json => {
     .catch(err => console.error(err));
 };
 
-export const pinFileToIPFS = async (file, pinataMetaData) => {
+export const pinFileToIPFS = async (file, pinataMetadata) => {
   const url = `https://api.pinata.cloud/pinning/pinFileToIPFS`;
 
   let data = new FormData();
 
   data.append("file", file);
-  data.append("pinataMetadata", JSON.stringify(pinataMetaData));
+  data.append("pinataMetadata", JSON.stringify(pinataMetadata));
 
   return axios
     .post(url, data, {
